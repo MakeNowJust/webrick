@@ -184,7 +184,7 @@ module WEBrick
       def initialize(server, root, options={}, default=Config::FileHandler)
         @config = server.config
         @logger = @config[:Logger]
-        @root = File.expand_path(root)
+        @root = File.expand_path(root).b
         if options == true || options == false
           options = { :FancyIndexing => options }
         end
@@ -202,7 +202,7 @@ module WEBrick
             path_info = $'
             begin
               passwd = Etc::getpwnam(user)
-              @root = File::join(passwd.dir, @options[:UserDir])
+              @root = File::join(passwd.dir, @options[:UserDir]).b
               req.script_name = script_name
               req.path_info = path_info
             rescue
